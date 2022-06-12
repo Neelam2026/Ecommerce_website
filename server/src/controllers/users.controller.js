@@ -2,7 +2,7 @@ const express = require("express");
 const router=express.Router()
 const Data=require("../models/users.model")
 
-router.get("",async(req,res)=>{
+router.get("/",async(req,res)=>{
     try{
         const data= await Data.find().lean().exec();
         res.status(200).send({data:data})
@@ -13,33 +13,34 @@ router.get("",async(req,res)=>{
    
 })
 
-router.get("/:id",async(req,res)=>{
-    try{
-        const data= await Data.findfindById({userid:req.params.id}).lean().exec();
-        res.status(200).send({data:data})
-    }
-    catch(e){
-        res.status(400).send({error:e})   
-    }
+// router.get("/:id",async(req,res)=>{
+//     try{
+//         const data= await Data.findfindById({userid:req.params.id}).lean().exec();
+//         res.status(200).send({data:data})
+//     }
+//     catch(e){
+//         res.status(400).send({error:e})   
+//     }
    
-})
+// })
 
-router.get("/create",async(req,res)=>{
-    try{
-        const data= await Data.findOne().lean().exec();
-        res.status(200).send({data:data})
-    }
-    catch(e){
-        res.status(400).send({error:e})   
-    }
+// router.get("/create",async(req,res)=>{
+//     try{
+//         const data= await Data.findOne().lean().exec();
+//         res.status(200).send({data:data})
+//     }
+//     catch(e){
+//         res.status(400).send({error:e})   
+//     }
    
-})
+// })
 
 
 //post
 router.post("/",async(req,res)=>{
     try{
         const data=await Data.create(req.body)
+        console.log(data)
         return res.status(201).send({data})
     }
     catch(e){
