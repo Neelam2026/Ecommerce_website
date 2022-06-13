@@ -1,18 +1,25 @@
-const express = require("express"); 
+const express = require("express");
 const router=express.Router()
-const Data=require("../models/users.model")
+const Data=require("../models/Orders.model")
 
 router.get("/",async(req,res)=>{
     try{
-        const data= await Data.find().lean().exec();
-        res.status(200).send({data:data})
+        let page=req.query.page||1
+        let pagesize=req.query.pagesize||12
+        let skip=(page-1)*pagesize
+        let sort=req.query.sort
+        let sortvalue=req.query.sortvalue
+        let filter=req.query.filter
+        let filtervalue=req.query.filtervalue
+        const data= await Data.find({[filter]:filtervalue}).skip(skip).limit(pagesize).sort({[sort]:sortvalue}).lean().exec();
+        let countpage=Math.ceil((await Data.find({[filter]:filtervalue}).countDocuments())/pagesize)
+        res.status(200).send({data:data,countpage:countpage})
     }
     catch(e){
         res.status(400).send({error:e})   
     }
    
 })
-
 router.get("/:id",async(req,res)=>{
     try{
         const data= await Data.findById({_id:req.params.id}).lean().exec();
@@ -23,24 +30,9 @@ router.get("/:id",async(req,res)=>{
     }
    
 })
-
-// router.get("/create",async(req,res)=>{
-//     try{
-//         const data= await Data.findOne().lean().exec();
-//         res.status(200).send({data:data})
-//     }
-//     catch(e){
-//         res.status(400).send({error:e})   
-//     }
-   
-// })
-
-
-//post
 router.post("/",async(req,res)=>{
     try{
         const data=await Data.create(req.body)
-        console.log(data)
         return res.status(201).send({data})
     }
     catch(e){
@@ -50,7 +42,7 @@ router.post("/",async(req,res)=>{
 })
 
 //patch
-router.patch("/:id",async(req,res)=>{
+router.patch("/:id/edit",async(req,res)=>{
     try{
         const data=await Data.findByIdAndUpdate(req.params.id,req.body,{
             new:true,

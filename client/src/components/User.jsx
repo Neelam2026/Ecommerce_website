@@ -20,7 +20,7 @@ const  handlesubmit=async(e)=>{
     alert("All fields are required")
   } else{
    
-        await fetch("https://ecommercewebsiteprac.herokuapp.com/users",{
+        await fetch("https://localhost:8080/users",{
         method:"POST",
         headers: {
             'Content-Type': 'application/json',

@@ -22,7 +22,7 @@ router.get("/",async(req,res)=>{
 })
 router.get("/:id",async(req,res)=>{
     try{
-        const data= await Data.findfindById({userid:req.params.id}).lean().exec();
+        const data= await Data.findById({_id:req.params.id}).lean().exec();
         res.status(200).send({data:data})
     }
     catch(e){
@@ -30,7 +30,7 @@ router.get("/:id",async(req,res)=>{
     }
    
 })
-router.post("/",async(req,res)=>{
+router.post("/create",async(req,res)=>{
     try{
         const data=await Data.create(req.body)
         return res.status(201).send({data})
@@ -42,7 +42,7 @@ router.post("/",async(req,res)=>{
 })
 
 //patch
-router.patch("/:id",async(req,res)=>{
+router.patch("/:id/edit",async(req,res)=>{
     try{
         const data=await Data.findByIdAndUpdate(req.params.id,req.body,{
             new:true,

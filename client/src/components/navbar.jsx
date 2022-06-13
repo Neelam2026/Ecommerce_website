@@ -9,7 +9,8 @@ export const Navbar=()=>{
           <Link to={"/"}>Home</Link>
           <Link to={"/users"}>Users</Link>
           <Link to={"/products"}>Products</Link>
-          <Link to={"/carts"}>Cart</Link>
+          <Link to={"/cart"}>Cart</Link>
+          <Link to={"/products/create"}>Add Product</Link>
        </div>
     )
 }

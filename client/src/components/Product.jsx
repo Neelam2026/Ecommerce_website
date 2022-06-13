@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import {useNavigate,useLocation } from "react-router-dom"
+import {useNavigate,useLocation,Link } from "react-router-dom"
 import "../Styles/Products.css"
 
 export const Product=()=>{
@@ -17,7 +17,7 @@ useEffect(()=>{
 },[pageNumber])
 const getData=async()=>{
    // let products= await fetch(`http://localhost:8080/products?_start=${pageNumber}&_end=${perpage+pageNumber}`)
-    let products= await fetch(`https://ecommercewebsiteprac.herokuapp.com/products/?page=${pageNumber}&pagesize=${perpage}`)
+    let products= await fetch(`http://localhost:8080/products/?page=${pageNumber}&pagesize=${perpage}`)
     let p=await products.json()
     //navigate(`/products?page=${pageNumber}&_end=${perpage+pageNumber}`)
     navigate(`/products/?page=${pageNumber}&pagesize=${perpage}`)
@@ -27,7 +27,7 @@ const getData=async()=>{
 }
 const SortbyPrice=async(e)=>{
      // let products= await fetch(`http://localhost:8080/products?_sort=price&_order=${e.target.value}&_start=${pageNumber}&_end=${perpage+pageNumber}`)
-    let products= await fetch(`https://ecommercewebsiteprac.herokuapp.com/products?page=${pageNumber}&pagesize=${perpage}&sort=price&sortvalue=${e.target.value}`)
+    let products= await fetch(`http://localhost:8080/products?page=${pageNumber}&pagesize=${perpage}&sort=price&sortvalue=${e.target.value}`)
     let p=await products.json()
    // navigate(`/products?_sort=price&_order=${e.target.value}&_start=${pageNumber}&_end=${perpage+pageNumber}`)
     navigate(`/products?page=${pageNumber}&pagesize=${perpage}&sort=price&sortvalue=${e.target.value}`)
@@ -38,7 +38,8 @@ const SortbyPrice=async(e)=>{
 
 const filterbyQTY=async(e)=>{
    
-   let products= await fetch(`https://ecommercewebsiteprac.herokuapp.com/products?filter=quantity&filtervalue=${e.target.value}`)
+   //let products= await fetch(`https://ecommercewebsiteprac.herokuapp.com/products?filter=quantity&filtervalue=${e.target.value}`)
+   let products= await fetch(`http://localhost:8080/products?filter=quantity&filtervalue=${e.target.value}`)
    let p=await products.json()
    navigate(`/products?page=${pageNumber}&pagesize=${perpage}&filter=quantity&filtervalue=${e.target.value}`)
    setProduct(p.data)
@@ -92,13 +93,15 @@ const Prevpage=()=>{
             <div className="Container">
             {products.map((e,i)=>{
                 return (
-                    <div key={e._id}>
-                    <div><img src={e.image_url}></img></div>
-                     <div>{e.name}</div>
-                     <div>Details:{e.description}</div>
-                     <div>Qty: {e.quantity}</div>
-                     <div>₹ {e.price}</div>
-                    </div>
+                    <div>
+                    <Link key={e._id}  to= {`/products/${e._id}`}>
+                   
+                    <img src={e.image_url}></img>
+                     {e.name}
+                     {/* <div>Details:{e.description}</div> */}
+                     Qty: {e.quantity}
+                     ₹ {e.price}
+                    </Link></div>
                 )
             })}
 

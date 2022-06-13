@@ -12,7 +12,7 @@ const ProductSchema = new mongoose.Schema({
   brandId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "brand",
-    required: true,
+    required:false,
   },
   reviewsId: [
     { ref: "reviews", type: mongoose.Schema.Types.ObjectId, required: false },
