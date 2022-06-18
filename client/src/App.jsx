@@ -10,6 +10,8 @@ import {Home} from "./components/Home"
 import { ProductDetails } from './components/ProductsDetails'
 import { AddProducts } from './components/AddProduct'
 import {ProductEdit} from './components/productedit'
+import {SignUp} from "./components/Signup"
+import {Login } from "./components/Login"
 function App() {
  
 
@@ -25,6 +27,9 @@ function App() {
         <Route path='/products/:id/add' element={<Order></Order>}></Route>
         <Route path='/users' element={<User></User>}></Route>
         <Route path='/carts' element={<Cart></Cart>}></Route>
+
+        <Route path='/register' element={<SignUp></SignUp>}></Route>
+       <Route path='/login' element={<Login></Login>}></Route>
       </Routes>
     </div>
   )

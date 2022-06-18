@@ -11,6 +11,9 @@ export const Navbar=()=>{
           <Link to={"/products"}>Products</Link>
           <Link to={"/cart"}>Cart</Link>
           <Link to={"/products/create"}>Add Product</Link>
+
+          <Link to={"/register"}>Register</Link>
+          <Link to={"/login"}>Login</Link>
        </div>
     )
 }

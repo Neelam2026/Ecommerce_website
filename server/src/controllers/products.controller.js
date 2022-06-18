@@ -1,7 +1,7 @@
 const express = require("express");
 const router=express.Router()
 const Data=require("../models/Products.model")
-
+const authenticate=require("../middlewares/authenticate")
 router.get("/",async(req,res)=>{
     try{
         let page=req.query.page||1
@@ -30,7 +30,8 @@ router.get("/:id",async(req,res)=>{
     }
    
 })
-router.post("/create",async(req,res)=>{
+router.post("/create",authenticate,async(req,res)=>{
+    req.body.userId=req.userId
     try{
         const data=await Data.create(req.body)
         return res.status(201).send({data})
@@ -42,7 +43,7 @@ router.post("/create",async(req,res)=>{
 })
 
 //patch
-router.patch("/:id/edit",async(req,res)=>{
+router.patch("/:id/edit",authenticate,async(req,res)=>{
     try{
         const data=await Data.findByIdAndUpdate(req.params.id,req.body,{
             new:true,
@@ -56,7 +57,7 @@ router.patch("/:id/edit",async(req,res)=>{
 })
 
 //delete
-router.delete("/:id",async(req,res)=>{
+router.delete("/:id",authenticate,async(req,res)=>{
     try{
         const data= await Data.findByIdAndDelete(req.params.id)
         res.status(200).send(data)

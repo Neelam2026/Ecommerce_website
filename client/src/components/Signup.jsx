@@ -1,7 +1,7 @@
 import { useState } from "react"
-import { useNavigate } from "react-router-dom"
-export const Login=()=>{
-const [user,setUser]=useState({})
+import {useNavigate} from "react-router-dom"
+export const SignUp=()=>{
+    const [user,setUser]=useState({})
 const navigate=useNavigate()
     const handleSubmit=async(e)=>{
         e.preventDefault()
@@ -14,7 +14,7 @@ const navigate=useNavigate()
                 body: JSON.stringify(user)
                
             })
-          navigate("/products")
+          navigate("/login")
          
         }
         catch(e){
@@ -29,17 +29,16 @@ const navigate=useNavigate()
 
     }
 
+    return(
+        <div style={{paddingTop:"100px"}}>
+           <form onSubmit={handleSubmit}>
+           <input placeholder="Firstname " id="firstname" onChange={handleinput}></input>
+           <input placeholder="Email "  id="email" onChange={handleinput}></input>
+           <input placeholder="Password "  id="password" onChange={handleinput}></input>
+           <input type="Submit"></input>
 
-    return (
-      <div style={{paddingTop:"100px"}}>
-      <form onSubmit={handleSubmit}>
-      
-      <input placeholder="Email "  id="email" onChange={handleinput}></input>
-      <input placeholder="Password "  id="password" onChange={handleinput}></input>
-      <input type="Submit"></input>
 
-
-      </form> 
-   </div>
+           </form> 
+        </div>
     )
 }

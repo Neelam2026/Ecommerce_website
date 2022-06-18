@@ -93,8 +93,8 @@ const Prevpage=()=>{
             <div className="Container">
             {products.map((e,i)=>{
                 return (
-                    <div>
-                    <Link key={e._id}  to= {`/products/${e._id}`}>
+                    <div key={e._id}>
+                    <Link  to= {`/products/${e._id}`}>
                    
                     <img src={e.image_url}></img>
                      {e.name}
